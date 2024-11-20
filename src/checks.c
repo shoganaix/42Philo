@@ -6,17 +6,17 @@
 /*   By: msoriano <msoriano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:57:20 by msoriano          #+#    #+#             */
-/*   Updated: 2024/11/04 19:56:16 by msoriano         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:53:10 by msoriano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-/* Check the inputs given are numbers 
+/* Check the inputs given are numbers between 1 and 200
  * Calls check_non_negative function: 
  * if negative number / not digit: returns -> 1 
  *  Else, returns -> 0
-*/
+ */
 
 int	check_nb_philos(char **argv)
 {
@@ -25,7 +25,7 @@ int	check_nb_philos(char **argv)
 		my_perror("Insert a valid number of philosophers");
 		return (1);
 	}
-	else if (ft_atoi(argv[1]) == 1)
+	else if (ft_atoi(argv[1]) == 0)
 	{
 		my_perror("Not enough forks in the table to execute");
 		return (1);
@@ -76,8 +76,10 @@ int	check_non_negative(char **argv)
 	return (0);
 }
 
-// Checks if they are finished eating, 
-//    -> returns the value of data->finished_eating 1 if they are
+/**
+ * Checks if they are finished eating, 
+ *      -> returns the value of data->finished_eating 1 if they are
+ */
 void	check_finished_eating(t_data *data, t_philo *philo)
 {
 	int	i;
@@ -91,7 +93,10 @@ void	check_finished_eating(t_data *data, t_philo *philo)
 		data->finished_eating = 1;
 }
 
-//Checks if they are dead, returns the value of data-> dead 1 if they are
+/** 
+ * Checks if philos are dead; uses mutex (lock_meal) to prevent race conditions
+ * 		-> returns the value of data-> dead 1 if they are
+ */
 void	check_death(t_data *data, t_philo *philo)
 {
 	int	i;

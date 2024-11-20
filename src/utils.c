@@ -6,12 +6,15 @@
 /*   By: msoriano <msoriano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:17:56 by msoriano          #+#    #+#             */
-/*   Updated: 2024/11/04 19:35:47 by msoriano         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:59:01 by msoriano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
+/**
+ * Gets the current timestamp in milliseconds since the epoch.
+ */
 long long	get_timestamp(void)
 {
 	struct timeval	t_val;
@@ -21,6 +24,9 @@ long long	get_timestamp(void)
 	return ((t_val.tv_sec * 1000) + (t_val.tv_usec / 1000));
 }
 
+/**
+ * Calculates the elapsed time since the simulation started
+ */
 long long	get_now(t_data *data)
 {
 	long long int	time;
@@ -29,12 +35,15 @@ long long	get_now(t_data *data)
 	return (time - data->start_time);
 }
 
+/**
+ * Sleeps for the specified time in milliseconds, checking simulation conditions
+ */
 void	ft_usleep(int time, t_data *data)
 {
 	long long	start;
 
 	start = get_timestamp();
-	while (!(data->dead))
+	while (!(data->dead) && (!data->finished_eating))
 	{
 		if ((get_timestamp() - start) >= time)
 			break ;
@@ -42,9 +51,10 @@ void	ft_usleep(int time, t_data *data)
 	}
 }
 
-//		WORK IN PROGRESS
-// Destroys mutex and clears data
-//NOt necessary to free thread_id because it points at philosophers pointer
+/**
+ *  Destroys mutex and clears data
+ * NOT necessary to free thread_id because it points at philosophers pointer
+ */
 void	clears_and_exit(t_data *data, t_philo *philo)
 {
 	int		i;
@@ -58,6 +68,10 @@ void	clears_and_exit(t_data *data, t_philo *philo)
 	pthread_mutex_destroy(&data->lock_wr);
 }
 
+/**
+ * This function safely prints a philo's status message
+ * It handles thread_safe access to terminal using mutex (lock_wr)
+ */
 void	prints(t_data *data, int id, char *message)
 {
 	int			color_index;

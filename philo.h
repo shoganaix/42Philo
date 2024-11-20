@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msoriano <msoriano@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 19:11:11 by msoriano          #+#    #+#             */
-/*   Updated: 2024/11/04 19:31:57 by msoriano         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:54:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		check_death(t_data *data, t_philo *philo);
 void		print_values(t_data *data);
 
 /*Philo*/
-void		take_forks(t_philo *philo);
+int			take_forks(t_philo *philo);
 void		*routine(void *philo);
 void		action_eat(t_philo *philo);
 

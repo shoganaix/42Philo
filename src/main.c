@@ -6,7 +6,7 @@
 /*   By: msoriano <msoriano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 18:38:32 by msoriano          #+#    #+#             */
-/*   Updated: 2024/11/04 19:36:43 by msoriano         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:31:21 by msoriano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	thread_init(t_data *data)
 	return (0);
 }
 
-/*
+/**
  * If pthread_mutex_init fails (return value different to 0)  -> then, returns 1
  * Initialized mutex: write, meals and forks
  * We create a loop for each fork to mutex
@@ -92,7 +92,8 @@ int	init_philos(t_data *data)
 
 /**
  * Initialize values on our data structure and calls init_philos
-*/
+ *    -> add print_values(data) call to check the values are correctly saved
+ */
 int	init_values(t_data *data, char **argv)
 {
 	data->number_of_philosophers = ft_atoi(argv[1]);
@@ -107,7 +108,6 @@ int	init_values(t_data *data, char **argv)
 		data->number_of_times_each_philosopher_must_eat = -1;
 	if (init_mutex(data) || init_philos(data))
 		return (1);
-	// print_values(data);
 	return (0);
 }
 
@@ -125,16 +125,3 @@ int	main(int argc, char **argv)
 		return (my_perror("error: thread_init failed!"), -1);
 	return (0);
 }
-// WE NEED TO THINK ABOUT ONLY ONE PHILO CASE
-// int	case_one(t_data *data)
-// {
-// 	data->start_time = get_time();
-// 	if (pthread_create(&data->tid[0], NULL, &routine, &data->philos[0]))
-// 		return (error(TH_ERR, data));
-// 	pthread_detach(data->tid[0]);
-// 	while (data->dead == 0)
-
-// 		ft_usleep(0, data);
-// 	ft_exit(data);
-// 	return (0);
-// }
