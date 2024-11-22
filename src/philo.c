@@ -23,7 +23,7 @@ int	lock_second_fork(t_philo *philo)
 	if (philo->philo_id % 2 == 0)
 	{
 		if (pthread_mutex_lock(&(data->forks[philo->left_fork_id])) != 0)
-			return (pthread_mutex_lock(&(data->forks[philo->right_fork_id]))
+			return (pthread_mutex_unlock(&(data->forks[philo->right_fork_id]))
 				, 1);
 		if (!(data->dead) && (!data->finished_eating))
 			prints(philo->data, philo->philo_id, "has taken a fork");
@@ -31,7 +31,7 @@ int	lock_second_fork(t_philo *philo)
 	else
 	{
 		if (pthread_mutex_lock(&(data->forks[philo->right_fork_id])) != 0)
-			return (pthread_mutex_lock(&(data->forks[philo->left_fork_id])), 1);
+			return (pthread_mutex_unlock(&(data->forks[philo->left_fork_id])), 1);
 		if (!(data->dead) && (!data->finished_eating))
 			prints(philo->data, philo->philo_id, "has taken a fork");
 	}
