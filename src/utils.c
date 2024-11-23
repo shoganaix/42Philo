@@ -66,6 +66,7 @@ void	clears_and_exit(t_data *data, t_philo *philo)
 	while (++i < data->number_of_philosophers)
 		pthread_mutex_destroy(&data->forks[i]);
 	pthread_mutex_destroy(&data->lock_wr);
+	pthread_mutex_destroy(&data->meal_lock);
 }
 
 /**
